@@ -53,9 +53,13 @@ INSERT INTO clasificaciones (codigo, nombre, edad_minima, descripcion) VALUES
 ('M','Maduro',17,'Contenido para +17'),
 ('AO','Solo adultos',18,'Mayores de edad (+18)');
 
+-- Nota: imagen_url usa placeholders de picsum.photos por ahora.
+-- Reemplázalos por tus propias imágenes cuando las tengas listas
+-- (puedes subirlas a un servicio como Cloudinary/Imgur y pegar la URL,
+-- o servir imágenes locales desde una carpeta /public del frontend).
 INSERT INTO juegos (titulo, descripcion, imagen_url, precio, fecha_lanzamiento, desarrollador, genero_id, clasificacion_id) VALUES
-('God of War Ragnarök','Kratos y Atreus enfrentan el Ragnarök nórdico.','', 1599.00,'2022-11-09','Santa Monica',1,3),
-('The Last of Us Part II','Aventura post-apocalíptica de venganza.','', 1499.00,'2020-06-19','Naughty Dog',2,3),
-('Elden Ring','RPG de mundo abierto de FromSoftware.','', 1299.00,'2022-02-25','FromSoftware',3,3),
-('FIFA 23','Simulador de fútbol.','', 1399.00,'2022-09-30','EA Sports',5,1),
-('Resident Evil 4 Remake','Survival horror clásico renovado.','', 1499.00,'2023-03-24','Capcom',6,3);
+('God of War Ragnarök','Kratos y Atreus enfrentan el Ragnarök nórdico.','https://picsum.photos/seed/god-of-war-ragnarok/600/400', 1599.00,'2022-11-09','Santa Monica',1,3),
+('The Last of Us Part II','Aventura post-apocalíptica de venganza.','https://picsum.photos/seed/last-of-us-2/600/400', 1499.00,'2020-06-19','Naughty Dog',2,3),
+('Elden Ring','RPG de mundo abierto de FromSoftware.','https://picsum.photos/seed/elden-ring/600/400', 1299.00,'2022-02-25','FromSoftware',3,3),
+('FIFA 23','Simulador de fútbol.','https://picsum.photos/seed/fifa-23/600/400', 1399.00,'2022-09-30','EA Sports',5,1),
+('Resident Evil 4 Remake','Survival horror clásico renovado.','https://picsum.photos/seed/resident-evil-4/600/400', 1499.00,'2023-03-24','Capcom',6,3);
