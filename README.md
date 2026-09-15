@@ -61,6 +61,7 @@ backend/
 | GET    | /api/db-health    | Revisa que la conexión a MySQL funcione  |
 | GET    | /api/juegos       | Lista todos los juegos, con nombre de género y clasificación incluidos |
 | GET    | /api/juegos/:id   | Obtiene un juego por id, con el mismo detalle |
+| GET    | /api/generos      | Lista todos los géneros (para los filtros del frontend) |
 
 Ejemplo de respuesta de `GET /api/juegos`:
 ```json
