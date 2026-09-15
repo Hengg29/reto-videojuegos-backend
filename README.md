@@ -59,9 +59,31 @@ backend/
 |--------|-------------------|------------------------------------------|
 | GET    | /api/health       | Revisa que el servidor esté vivo         |
 | GET    | /api/db-health    | Revisa que la conexión a MySQL funcione  |
+| GET    | /api/juegos       | Lista todos los juegos, con nombre de género y clasificación incluidos |
+| GET    | /api/juegos/:id   | Obtiene un juego por id, con el mismo detalle |
+
+Ejemplo de respuesta de `GET /api/juegos`:
+```json
+[
+  {
+    "id": 1,
+    "titulo": "God of War Ragnarök",
+    "descripcion": "Kratos y Atreus enfrentan el Ragnarök nórdico.",
+    "imagen_url": "",
+    "precio": "1599.00",
+    "fecha_lanzamiento": "2022-11-09T06:00:00.000Z",
+    "desarrollador": "Santa Monica",
+    "genero_id": 1,
+    "genero": "Acción",
+    "clasificacion_id": 3,
+    "clasificacion_codigo": "M",
+    "clasificacion": "Maduro"
+  }
+]
+```
 
 _(Esta tabla se irá actualizando conforme se agreguen los endpoints de
-juegos, login y usuarios.)_
+crear/editar/borrar juegos, login y usuarios.)_
 
 ## Base de datos
 
