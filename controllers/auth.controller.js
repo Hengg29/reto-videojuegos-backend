@@ -1,15 +1,3 @@
-// Controlador de autenticación
-// ------------------------------
-// register: crea una cuenta nueva. Siempre con rol "user" — nadie puede
-// auto-asignarse "admin" desde este endpoint público (eso es a propósito,
-// es un tema de seguridad: los admins se crean aparte, no por registro
-// abierto). La contraseña se guarda siempre hasheada con bcrypt, nunca
-// en texto plano.
-//
-// login: valida el correo/contraseña contra la base de datos y, si son
-// correctos, devuelve un JWT que el frontend debe guardar y mandar en
-// cada petición protegida (header Authorization: Bearer <token>).
-
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import pool from '../config/db.js'

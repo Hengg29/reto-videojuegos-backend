@@ -13,7 +13,6 @@ dist-ssr
 
 .env
 
-# Imágenes subidas por el admin (no son código, no van al repo)
 uploads/*
 !uploads/.gitkeep
 

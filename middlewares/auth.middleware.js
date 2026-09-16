@@ -1,14 +1,3 @@
-// Middlewares de autenticación y autorización
-// ----------------------------------------------
-// verificarToken: revisa que la petición traiga un JWT válido en el
-// header "Authorization: Bearer <token>". Si es válido, guarda los
-// datos del usuario en req.usuario para que los siguientes middlewares
-// o el controller los puedan usar.
-//
-// soloAdmin: debe usarse SIEMPRE después de verificarToken. Revisa que
-// el usuario autenticado tenga rol "admin"; si no, corta la petición
-// con 403 antes de que llegue al controller.
-
 import jwt from 'jsonwebtoken'
 
 export function verificarToken(req, res, next) {
