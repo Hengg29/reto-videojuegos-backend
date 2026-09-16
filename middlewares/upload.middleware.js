@@ -1,13 +1,17 @@
 import multer from 'multer'
 import crypto from 'crypto'
 import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const DIRECTORIO_UPLOADS = path.join(__dirname, '..', 'uploads')
 
 const TIPOS_PERMITIDOS = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
 const TAMANO_MAXIMO = 5 * 1024 * 1024 // 5 MB
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/')
+    cb(null, DIRECTORIO_UPLOADS)
   },
   filename: (req, file, cb) => {
     const extension = path.extname(file.originalname).toLowerCase()
