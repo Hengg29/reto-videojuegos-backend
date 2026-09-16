@@ -61,9 +61,11 @@ backend/
 ├── config/
 │   └── db.js                ← conexión (pool) a MySQL
 ├── middlewares/
-│   └── auth.middleware.js    ← verificarToken (login) y soloAdmin (rol)
+│   ├── auth.middleware.js     ← verificarToken (login) y soloAdmin (rol)
+│   └── upload.middleware.js   ← multer: guarda imágenes con nombre único
 ├── scripts/
 │   └── crear-admin.js         ← crea/actualiza una cuenta admin a mano
+├── uploads/                  ← imágenes subidas (no va a git, solo el .gitkeep)
 ├── routes/                  ← define qué URL dispara qué función
 └── controllers/             ← la lógica de cada endpoint
 ```
@@ -90,10 +92,45 @@ backend/
 | POST   | /api/auth/register | Crea una cuenta nueva (siempre con rol `user`) |
 | POST   | /api/auth/login   | Inicia sesión, devuelve `{ usuario, token }` |
 | GET    | /api/auth/me      | Devuelve el usuario del token actual 🔒 requiere login |
+| POST   | /api/upload       | Sube una imagen, devuelve `{ url }` 🔒 solo admin |
 
 🔒 = requiere mandar el header `Authorization: Bearer <token>` que te da
 `/api/auth/login`. Las rutas marcadas "solo admin" además revisan que el
 `rol` del token sea `admin` (si no, responden 403).
+
+### Subida de imágenes
+
+- `POST /api/upload` recibe un `multipart/form-data` con un campo
+  llamado **`imagen`** (máximo 5 MB, solo jpg/png/webp/gif).
+- El archivo se guarda en `backend/uploads/` (no se sube a git — son
+  datos, no código) con un **nombre único generado al azar** (32
+  caracteres hexadecimales), para que nunca se pisen dos imágenes con
+  el mismo nombre original.
+- Responde `{ url: "/uploads/<nombre-unico>.webp" }` — esa URL es la
+  que se guarda en `imagen_url` al crear/editar un juego.
+- Esa carpeta se sirve como estática desde `/uploads` (ver `server.js`).
+- Ejemplo:
+  ```bash
+  curl -X POST http://localhost:4000/api/upload \
+    -H "Authorization: Bearer TU_TOKEN" \
+    -F "imagen=@/ruta/a/tu/imagen.webp"
+  ```
+
+> **⚠️ Limitación conocida (disco no persistente en producción):**
+> Las imágenes se guardan en el disco del propio servidor. En local
+> funciona perfecto porque tu disco no se borra. Pero en hostings
+> gratuitos típicos (Render, Railway free, Heroku), el disco es
+> **efímero**: se resetea a lo que hay en el repo de git cada vez que
+> el servidor se reinicia o se hace un nuevo deploy — y como
+> `uploads/` no va a git (a propósito, son datos, no código), las
+> imágenes subidas en producción se perderían en ese momento.
+>
+> Para este reto se dejó así intencionalmente (es válido para una
+> demo de 3 días). Si este proyecto fuera a producción real de forma
+> permanente, la solución sería subir las imágenes a un servicio de
+> almacenamiento externo (Cloudinary, S3, Supabase Storage, etc.) que
+> devuelva una URL permanente, en vez de guardarlas en el disco local
+> del backend.
 
 ### Autenticación
 
