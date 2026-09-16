@@ -20,8 +20,18 @@ app.use(helmet())
 app.use(cors())
 app.use(express.json())
 
-// Sirve los archivos de /uploads como estáticos (ej. /uploads/abc123.webp)
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+// Sirve los archivos de /uploads como estáticos (ej. /uploads/abc123.webp).
+// El frontend vive en otro dominio, así que hay que relajar el
+// Cross-Origin-Resource-Policy que pone helmet por defecto (same-origin);
+// si no, el navegador bloquea mostrar estas imágenes en el <img> del front.
+app.use(
+  '/uploads',
+  express.static(path.join(__dirname, 'uploads'), {
+    setHeaders: (res) => {
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin')
+    },
+  })
+)
 
 // Rutas
 app.use('/api', healthRoutes) // /api/health, /api/db-health
